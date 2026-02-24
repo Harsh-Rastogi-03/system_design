@@ -468,7 +468,6 @@ export default function App() {
   }, [state.dsaStatus]);
 
   const cycle = (type, key) => {
-    if (!state.editMode) return;
     const lists = type === "dsa" ? [undefined, "solved", "attempted", "review"] : [undefined, "done", "in-progress"];
     const field = type === "dsa" ? "dsaStatus" : type === "weekly" ? "weeklyStatus" : type === "backend" ? "backendStatus" : "sysdesignStatus";
     const cur = state[field][key];
@@ -519,8 +518,8 @@ export default function App() {
             background: "linear-gradient(135deg, #8b5cf6, #6366f1)", fontSize: 16, fontWeight: 800, color: "#fff",
           }}>M</div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", letterSpacing: "0.04em" }}>MODELIA AI</div>
-            <div style={{ fontSize: 9, color: "#64748b", letterSpacing: "0.08em" }}>SKILL TRACKER</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: "#f8fafc", letterSpacing: "0.04em" }}>Mission 2026</div>
+            <div style={{ fontSize: 11, color: "#64748b", letterSpacing: "0.08em" }}>SKILL TRACKER</div>
           </div>
         </div>
         <button onClick={() => state.editMode ? save({ ...state, editMode: false }) : setShowAuth(true)} style={{
@@ -528,7 +527,7 @@ export default function App() {
           borderColor: state.editMode ? "#22c55e" : "rgba(139,92,246,0.3)",
           background: state.editMode ? "rgba(34,197,94,0.15)" : "rgba(139,92,246,0.1)",
           color: state.editMode ? "#22c55e" : "#8b5cf6",
-          cursor: "pointer", fontSize: 11, fontWeight: 600, fontFamily: "inherit",
+          cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "inherit",
         }}>
           {state.editMode ? "🔓 Editing" : "🔒 View Only"}
         </button>
@@ -567,7 +566,7 @@ export default function App() {
             padding: "9px 16px", borderRadius: 8, border: "none",
             background: activeTab === t.id ? "rgba(139,92,246,0.15)" : "transparent",
             color: activeTab === t.id ? "#a78bfa" : "#64748b",
-            cursor: "pointer", fontSize: 11, fontWeight: 600, fontFamily: "inherit",
+            cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "inherit",
             whiteSpace: "nowrap", borderBottom: activeTab === t.id ? "2px solid #8b5cf6" : "2px solid transparent",
           }}>
             {t.icon} {t.label}
@@ -590,8 +589,8 @@ export default function App() {
                 borderRadius: 14, padding: 16, display: "flex", alignItems: "center", gap: 14 }}>
                 <ProgressRing pct={c.pct} color={c.color}/>
                 <div>
-                  <div style={{ fontSize: 10, color: "#64748b", fontWeight: 600, letterSpacing: "0.06em" }}>{c.label}</div>
-                  <div style={{ fontSize: 12, color: "#cbd5e1", marginTop: 2 }}>{c.sub}</div>
+                  <div style={{ fontSize: 12, color: "#64748b", fontWeight: 600, letterSpacing: "0.06em" }}>{c.label}</div>
+                  <div style={{ fontSize: 14, color: "#cbd5e1", marginTop: 2 }}>{c.sub}</div>
                 </div>
               </div>
             ))}
@@ -599,12 +598,12 @@ export default function App() {
 
           {/* Difficulty */}
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 14, padding: 18, marginBottom: 20 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>DSA by Difficulty</div>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>DSA by Difficulty</div>
             <div className="diff-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
               {["Easy", "Medium", "Hard"].map(d => (
                 <div key={d} style={{ padding: 14, borderRadius: 10, background: diffBg[d], textAlign: "center" }}>
                   <div style={{ fontSize: 20, fontWeight: 800, color: diffColors[d] }}>{dsaDiffStats[d].d}/{dsaDiffStats[d].t}</div>
-                  <div style={{ fontSize: 10, color: diffColors[d], opacity: 0.8, marginTop: 2 }}>{d}</div>
+                  <div style={{ fontSize: 12, color: diffColors[d], opacity: 0.8, marginTop: 2 }}>{d}</div>
                   <div style={{ marginTop: 6 }}><ProgressBar pct={dsaDiffStats[d].t > 0 ? (dsaDiffStats[d].d / dsaDiffStats[d].t) * 100 : 0} color={diffColors[d]} h={4}/></div>
                 </div>
               ))}
@@ -613,7 +612,7 @@ export default function App() {
 
           {/* Phase Progress */}
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 14, padding: 18, marginBottom: 20 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>Phase Progress</div>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>Phase Progress</div>
             {[1, 2, 3].map(phase => {
               const weeks = WEEKLY_PLAN.filter(w => w.phase === phase);
               const keys = weeks.flatMap(w => w.tasks.map((_, i) => `${w.week}-${i}`));
@@ -622,11 +621,11 @@ export default function App() {
               return (
                 <div key={phase} style={{ marginBottom: 12 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 5 }}>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: "#cbd5e1" }}>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: "#cbd5e1" }}>
                       <span style={{ display: "inline-block", width: 7, height: 7, borderRadius: "50%", background: phaseColors[phase], marginRight: 6 }}/>
                       Phase {phase}: {phaseNames[phase]}
                     </span>
-                    <span style={{ fontSize: 11, fontWeight: 600, color: phaseColors[phase] }}>{Math.round(pct)}%</span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: phaseColors[phase] }}>{Math.round(pct)}%</span>
                   </div>
                   <ProgressBar pct={pct} color={phaseColors[phase]}/>
                 </div>
@@ -636,7 +635,7 @@ export default function App() {
 
           {/* Section Grid */}
           <div style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: 14, padding: 18 }}>
-            <div style={{ fontSize: 12, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>DSA Sections</div>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 14, color: "#f8fafc" }}>DSA Sections</div>
             <div className="sec-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 8 }}>
               {(() => { let gi = 0; return DSA_SECTIONS.map(sec => {
                 const si = gi; const t = sec.problems.length;
@@ -649,9 +648,9 @@ export default function App() {
                       border: `1px solid ${pct === 100 ? "rgba(34,197,94,0.2)" : "rgba(255,255,255,0.04)"}` }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                       <span>{sec.icon}</span>
-                      <span style={{ fontSize: 10, fontWeight: 600, color: pct === 100 ? "#22c55e" : "#64748b" }}>{d}/{t}</span>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: pct === 100 ? "#22c55e" : "#64748b" }}>{d}/{t}</span>
                     </div>
-                    <div style={{ fontSize: 10, fontWeight: 600, color: "#cbd5e1", marginBottom: 4 }}>{sec.name}</div>
+                    <div style={{ fontSize: 12, fontWeight: 600, color: "#cbd5e1", marginBottom: 4 }}>{sec.name}</div>
                     <ProgressBar pct={pct} color={pct === 100 ? "#22c55e" : "#8b5cf6"} h={3}/>
                   </div>
                 );
@@ -669,7 +668,7 @@ export default function App() {
                 borderColor: dsaFilter === f ? (diffColors[f] || "#8b5cf6") : "rgba(255,255,255,0.08)",
                 background: dsaFilter === f ? (diffBg[f] || "rgba(139,92,246,0.12)") : "transparent",
                 color: dsaFilter === f ? (diffColors[f] || "#a78bfa") : "#64748b",
-                cursor: "pointer", fontSize: 10, fontWeight: 600, fontFamily: "inherit",
+                cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit",
               }}>{f === "all" ? `All (${allProblems.length})` : `${f} (${dsaDiffStats[f].t})`}</button>
             ))}
             <div style={{ flex: 1 }}/>
@@ -678,7 +677,7 @@ export default function App() {
                 padding: "5px 12px", borderRadius: 6, border: "1px solid rgba(255,255,255,0.08)",
                 background: statusFilter === f ? "rgba(139,92,246,0.12)" : "transparent",
                 color: statusFilter === f ? "#a78bfa" : "#64748b",
-                cursor: "pointer", fontSize: 10, fontWeight: 600, fontFamily: "inherit",
+                cursor: "pointer", fontSize: 12, fontWeight: 600, fontFamily: "inherit",
               }}>{f === "all" ? "All" : f === "unsolved" ? "⬜ Todo" : "✅ Done"}</button>
             ))}
           </div>
@@ -698,30 +697,30 @@ export default function App() {
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8, padding: "8px 12px",
                   borderRadius: 8, background: "rgba(139,92,246,0.06)", border: "1px solid rgba(139,92,246,0.1)" }}>
                   <span style={{ fontSize: 16 }}>{sec.icon}</span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: "#e2e8f0" }}>{sec.name}</span>
-                  <span style={{ fontSize: 10, color: "#64748b", marginLeft: "auto" }}>{secDone}/{sec.problems.length}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#e2e8f0" }}>{sec.name}</span>
+                  <span style={{ fontSize: 12, color: "#64748b", marginLeft: "auto" }}>{secDone}/{sec.problems.length}</span>
                   <div style={{ width: 50 }}><ProgressBar pct={sec.problems.length > 0 ? (secDone / sec.problems.length) * 100 : 0} color="#8b5cf6" h={3}/></div>
                 </div>
                 {filtered.map(p => {
                   const st = state.dsaStatus[p.idx];
                   return (
                     <div key={p.idx} className="hover-row" style={{
-                      display: "flex", alignItems: "center", gap: 8, padding: "7px 12px", borderRadius: 6, marginBottom: 1,
-                      cursor: state.editMode ? "pointer" : "default",
+                      display: "flex", alignItems: "center", gap: 8, padding: "8px 12px", borderRadius: 6, marginBottom: 1,
+                      cursor: "pointer",
                       background: st === "solved" ? "rgba(34,197,94,0.04)" : "transparent",
                     }} onClick={() => cycle("dsa", p.idx)}>
-                      <span style={{ fontSize: 14, width: 22, textAlign: "center" }}>{statusIcon(st)}</span>
-                      <span style={{ fontSize: 10, color: "#475569", width: 26, textAlign: "right" }}>#{p.idx + 1}</span>
+                      <span style={{ fontSize: 16, width: 24, textAlign: "center" }}>{statusIcon(st)}</span>
+                      <span style={{ fontSize: 12, color: "#475569", width: 28, textAlign: "right" }}>#{p.idx + 1}</span>
                       <a href={`https://leetcode.com/problems/${p.lc}/`} target="_blank" rel="noopener noreferrer"
                         onClick={e => e.stopPropagation()}
                         style={{
-                          flex: 1, fontSize: 11, fontWeight: 500, textDecoration: "none",
+                          flex: 1, fontSize: 13, fontWeight: 500, textDecoration: "none",
                           color: st === "solved" ? "#4ade80" : "#cbd5e1", opacity: st === "solved" ? 0.7 : 1,
                         }}>
                         {p.name}
-                        <span style={{ fontSize: 9, marginLeft: 4, opacity: 0.4 }}>↗</span>
+                        <span style={{ fontSize: 11, marginLeft: 4, opacity: 0.4 }}>↗</span>
                       </a>
-                      <span style={{ padding: "2px 8px", borderRadius: 5, fontSize: 9, fontWeight: 700,
+                      <span style={{ padding: "2px 8px", borderRadius: 5, fontSize: 11, fontWeight: 700,
                         background: diffBg[p.difficulty], color: diffColors[p.difficulty] }}>{p.difficulty}</span>
                     </div>
                   );
@@ -747,11 +746,11 @@ export default function App() {
                   <div style={{ width: 30, height: 30, borderRadius: 7, display: "flex", alignItems: "center", justifyContent: "center",
                     background: phaseColors[week.phase], color: "#fff", fontSize: 12, fontWeight: 800, flexShrink: 0 }}>W{week.week}</div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: "#f8fafc" }}>{week.title}</div>
-                    <div style={{ fontSize: 9, color: "#64748b" }}>Phase {week.phase}: {phaseNames[week.phase]}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: "#f8fafc" }}>{week.title}</div>
+                    <div style={{ fontSize: 11, color: "#64748b" }}>Phase {week.phase}: {phaseNames[week.phase]}</div>
                   </div>
                   <div style={{ textAlign: "right", flexShrink: 0 }}>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: phaseColors[week.phase] }}>{wd}/{week.tasks.length}</div>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: phaseColors[week.phase] }}>{wd}/{week.tasks.length}</div>
                     <div style={{ width: 50, marginTop: 3 }}><ProgressBar pct={wp} color={phaseColors[week.phase]} h={3}/></div>
                   </div>
                 </div>
@@ -760,14 +759,14 @@ export default function App() {
                   const st = state.weeklyStatus[key];
                   return (
                     <div key={key} className="hover-row" style={{
-                      display: "flex", alignItems: "center", gap: 8, padding: "8px 16px",
+                      display: "flex", alignItems: "center", gap: 8, padding: "9px 16px",
                       borderBottom: i < week.tasks.length - 1 ? "1px solid rgba(255,255,255,0.03)" : "none",
-                      cursor: state.editMode ? "pointer" : "default",
+                      cursor: "pointer",
                     }} onClick={() => cycle("weekly", key)}>
-                      <span style={{ fontSize: 13 }}>{statusIcon(st)}</span>
-                      <span style={{ padding: "1px 7px", borderRadius: 4, fontSize: 9, fontWeight: 700,
+                      <span style={{ fontSize: 15 }}>{statusIcon(st)}</span>
+                      <span style={{ padding: "2px 8px", borderRadius: 4, fontSize: 11, fontWeight: 700,
                         background: `${areaColors[task.area]}18`, color: areaColors[task.area] }}>{task.area}</span>
-                      <span style={{ flex: 1, fontSize: 11, color: st === "done" ? "#4ade80" : "#cbd5e1",
+                      <span style={{ flex: 1, fontSize: 13, color: st === "done" ? "#4ade80" : "#cbd5e1",
                         opacity: st === "done" ? 0.7 : 1 }}>{task.task}</span>
                     </div>
                   );
@@ -783,8 +782,8 @@ export default function App() {
             background: "rgba(59,130,246,0.06)", border: "1px solid rgba(59,130,246,0.12)" }}>
             <ProgressRing pct={backendPct} color="#3b82f6"/>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>Backend Mastery</div>
-              <div style={{ fontSize: 10, color: "#64748b", marginBottom: 6 }}>Node.js · TypeScript · Prisma · Postgres · Auth · Testing</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>Backend Mastery</div>
+              <div style={{ fontSize: 12, color: "#64748b", marginBottom: 6 }}>Node.js · TypeScript · Prisma · Postgres · Auth · Testing</div>
               <ProgressBar pct={backendPct} color="#3b82f6"/>
             </div>
           </div>
@@ -796,18 +795,18 @@ export default function App() {
               <div key={cat} style={{ marginBottom: 14 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6, padding: "7px 12px",
                   borderRadius: 7, background: "rgba(59,130,246,0.06)" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#93c5fd" }}>{cat}</span>
-                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#64748b" }}>{cd}/{items.length}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#93c5fd" }}>{cat}</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#64748b" }}>{cd}/{items.length}</span>
                 </div>
                 {items.map(t => {
                   const st = state.backendStatus[t.id];
                   return (
                     <div key={t.id} className="hover-row" style={{ display: "flex", alignItems: "center", gap: 8,
-                      padding: "7px 12px", marginBottom: 1, borderRadius: 5, cursor: state.editMode ? "pointer" : "default",
+                      padding: "8px 12px", marginBottom: 1, borderRadius: 5, cursor: "pointer",
                     }} onClick={() => cycle("backend", t.id)}>
-                      <span style={{ fontSize: 13 }}>{statusIcon(st)}</span>
-                      <span style={{ fontSize: 11, color: st === "done" ? "#4ade80" : "#cbd5e1", flex: 1 }}>{t.topic}</span>
-                      <span style={{ fontSize: 9, color: "#64748b" }}>W{t.week}</span>
+                      <span style={{ fontSize: 15 }}>{statusIcon(st)}</span>
+                      <span style={{ fontSize: 13, color: st === "done" ? "#4ade80" : "#cbd5e1", flex: 1 }}>{t.topic}</span>
+                      <span style={{ fontSize: 11, color: "#64748b" }}>W{t.week}</span>
                     </div>
                   );
                 })}
@@ -822,8 +821,8 @@ export default function App() {
             background: "rgba(245,158,11,0.06)", border: "1px solid rgba(245,158,11,0.12)" }}>
             <ProgressRing pct={sysPct} color="#f59e0b"/>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>System Design</div>
-              <div style={{ fontSize: 10, color: "#64748b", marginBottom: 6 }}>Foundations · Scalability · Patterns · Real Designs</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#f8fafc", marginBottom: 3 }}>System Design</div>
+              <div style={{ fontSize: 12, color: "#64748b", marginBottom: 6 }}>Foundations · Scalability · Patterns · Real Designs</div>
               <ProgressBar pct={sysPct} color="#f59e0b"/>
             </div>
           </div>
@@ -835,18 +834,18 @@ export default function App() {
               <div key={cat} style={{ marginBottom: 14 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6, padding: "7px 12px",
                   borderRadius: 7, background: "rgba(245,158,11,0.06)" }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: "#fbbf24" }}>{cat}</span>
-                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#64748b" }}>{cd}/{items.length}</span>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: "#fbbf24" }}>{cat}</span>
+                  <span style={{ marginLeft: "auto", fontSize: 12, color: "#64748b" }}>{cd}/{items.length}</span>
                 </div>
                 {items.map(t => {
                   const st = state.sysdesignStatus[t.id];
                   return (
                     <div key={t.id} className="hover-row" style={{ display: "flex", alignItems: "center", gap: 8,
-                      padding: "7px 12px", marginBottom: 1, borderRadius: 5, cursor: state.editMode ? "pointer" : "default",
+                      padding: "8px 12px", marginBottom: 1, borderRadius: 5, cursor: "pointer",
                     }} onClick={() => cycle("sysdesign", t.id)}>
-                      <span style={{ fontSize: 13 }}>{statusIcon(st)}</span>
-                      <span style={{ fontSize: 11, color: st === "done" ? "#4ade80" : "#cbd5e1", flex: 1 }}>{t.topic}</span>
-                      <span style={{ fontSize: 9, color: "#64748b" }}>W{t.week}</span>
+                      <span style={{ fontSize: 15 }}>{statusIcon(st)}</span>
+                      <span style={{ fontSize: 13, color: st === "done" ? "#4ade80" : "#cbd5e1", flex: 1 }}>{t.topic}</span>
+                      <span style={{ fontSize: 11, color: "#64748b" }}>W{t.week}</span>
                     </div>
                   );
                 })}
@@ -857,8 +856,8 @@ export default function App() {
       </main>
 
       <footer style={{ padding: "18px 20px", textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.04)", marginTop: 30 }}>
-        <div style={{ fontSize: 9, color: "#475569" }}>
-          Modelia AI Skill Tracker · {state.editMode ? "✏️ Click items to toggle" : "🔒 Unlock to edit"} · Built with React + Vite
+        <div style={{ fontSize: 11, color: "#475569" }}>
+          Mission 2026 Skill Tracker · Click items to toggle status · Built with Claude
         </div>
       </footer>
     </div>
